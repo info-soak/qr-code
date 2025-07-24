@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // output: "export", // Enables static HTML export
+    output: "export", // Enables static HTML export
     // Optional: Add a base path if your GitHub Pages URL includes a repository name
     // For a User/Organization site (username.github.io), you typically don't need basePath.
     // For a Project site (username.github.io/repo-name/), you DO need basePath.
