@@ -1,22 +1,17 @@
 import { useState } from "react"
 import Frames from "./_ui/frames"
+import Shapes from "./_ui/shapes";
+import tabs from '@/app/_data/tabs.json';
 
 
 export default function Sidebar({
     url,
     setUrl,
-    bottomText,
-    setBottomText,
-    textColor,
-    setTextColor,
-    color,
-    setColor,
-    shape,
-    setShape
 }) {
     const [selectedTab, setSelectedTab] = useState('frames');
+
     return (
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-12 w-[40%]">
             <div>
                 <h2 className="text-xl font-bold p-2">Enter your Website</h2>
                 <InputBox
@@ -33,8 +28,8 @@ export default function Sidebar({
                             return (
                                 <button
                                     className={`
-                                        px-4 py-2 rounded-full
-                                        text-xl font-bold cursor-pointer
+                                        px-6 py-1 rounded-full
+                                        text-lg font-bold cursor-pointer
                                         ${selectedTab === value ? 'bg-sky-700' : 'bg-gray-700'}
                                     `}
                                     onClick={(() => setSelectedTab(value))}
@@ -47,32 +42,15 @@ export default function Sidebar({
                     }
                 </div>
                 {selectedTab === 'frames' &&
-                    <Frames
-                        bottomText={bottomText}
-                        setBottomText={setBottomText}
-                        textColor={textColor}
-                        setTextColor={setTextColor}
-                        color={color}
-                        setColor={setColor}
-                        shape={shape}
-                        setShape={setShape}
-                    />
+                    <Frames />
+                }
+                {selectedTab === 'shapes' &&
+                    <Shapes />
                 }
             </div>
         </div>
     )
 }
-
-const tabs = [
-    {
-        name: 'Frames',
-        value: 'frames',
-    },
-    {
-        name: 'Shape',
-        value: 'shape',
-    }
-]
 
 
 function InputBox({ placeholder, value, onChange }) {
@@ -80,7 +58,7 @@ function InputBox({ placeholder, value, onChange }) {
         <input
             type='text'
             placeholder={placeholder}
-            className="bg-gray-600 w-[25rem] px-4 py-2 rounded-full"
+            className="bg-gray-600 w-[25rem] px-6 py-2 rounded-full border-none outline-none"
             onChange={(e) => onChange(e.target.value)}
             value={value}
         />

@@ -1,6 +1,7 @@
 import QRCodeStyling from "qr-code-styling";
 import { useEffect, useRef } from "react";
 import QRBorderPlugin from "qr-border-plugin";
+import { useSelector } from "react-redux";
 
 
 const qrCode = new QRCodeStyling({
@@ -10,26 +11,20 @@ const qrCode = new QRCodeStyling({
     height: 400,
     margin: 70,
     dotsOptions: {
-        type: "dots",
+        type: "square",
         color: "#ff1818ff",
-    },
-    backgroundOptions: {
-        // round: 1,
-        color: "#ffffffff",
     },
     cornersSquareOptions: {
         type: "classy",
     },
     cornersDotOptions: {
         type: "rounded",
-    },
-    imageOptions: {
-        crossOrigin: "anonymous",
-        margin: 20,
-    },
+    }
 });
 
-export default function QRCode({ url, textColor, bottomText, color, shape }) {
+export default function QRCode({ url }) {
+    const { bottomText, textColor, color, shape } = useSelector((state) => state.frames);
+    const { cornerSquare, dotColor } = useSelector((state) => state.shapes);
     const qrCodeRef = useRef(null);
 
     useEffect(() => {
@@ -38,9 +33,16 @@ export default function QRCode({ url, textColor, bottomText, color, shape }) {
 
     useEffect(() => {
         qrCode.update({
-            data: url
+            data: url,
+            cornersSquareOptions: {
+                type: cornerSquare,
+            },
+            dotsOptions: {
+                type: "square",
+                color: dotColor,
+            },
         });
-    }, [url]);
+    }, [url, cornerSquare, dotColor]);
 
     useEffect(() => {
         const extensionOptions = {
@@ -57,7 +59,7 @@ export default function QRCode({ url, textColor, bottomText, color, shape }) {
         };
         if (shape === 'square') {
             qrCode.update({
-                shape: 'square  '
+                shape: 'square'
             })
             const extensionOptionsNone = {
                 // round: 1,
@@ -91,7 +93,7 @@ export default function QRCode({ url, textColor, bottomText, color, shape }) {
                     :
                     <div
                         ref={qrCodeRef}
-                        // className="bg-gray-200 p-6"
+                    // className="bg-gray-200 p-6"
                     >
                     </div>
             }

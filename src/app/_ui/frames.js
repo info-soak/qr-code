@@ -1,26 +1,34 @@
-export default function Frames({
-    setBottomText,
-    bottomText,
-    textColor,
-    setTextColor,
-    color,
-    setColor,
-    shape,
-    setShape
-}) {
+import { useSelector, useDispatch } from "react-redux"
+import { setBottomText, setColor, setShape, setTextColor } from "../_features/framesSlice";
+import { Circle, Ban } from "lucide-react";
+import frames from '@/app/_data/frames.json';
+
+
+export default function Frames() {
+    const { bottomText, textColor, color, shape } = useSelector((state) => state.frames);
+    const dispatch = useDispatch();
+
+    const framesMap = {
+        'square': Ban,
+        'circle': Circle,
+    }
+
     return (
-        <div className="flex flex-col gap-6">
-            <div className="flex gap-6">
+        <div className="flex flex-col gap-6 bg-gray-700 p-6 rounded-xl">
+            <div className="flex gap-6 border-2 p-2 rounded-xl border-gray-500">
                 {frames.map(({ name, frame }) => {
-                    return (
-                        <button
+                    const IconComponent = framesMap[frame];
+                    return IconComponent ?
+                        <IconComponent
                             key={frame}
-                            onClick={() => setShape(frame)}
-                            className={`p-6 rounded-xl cursor-pointer hover:bg-sky-400 ${shape === frame ? 'bg-sky-500' : 'bg-sky-700'}`}
-                        >
-                            {name}
-                        </button>
-                    )
+                            size="5rem"
+                            color={frame === shape ? 'orange' : '#ffffff'}
+                            strokeWidth={'2.5px'}
+                            className={`cursor-pointer ${frame === shape ? 'bg-sky-800' : ''} p-2 rounded-xl`}
+                            onClick={() => dispatch(setShape(frame))}
+                        />
+                        :
+                        null
                 })}
             </div>
             {shape === 'circle' &&
@@ -31,7 +39,7 @@ export default function Frames({
                             type='text'
                             placeholder='Enter Text'
                             className="bg-gray-600 w-[25rem] px-4 py-2 rounded-full"
-                            onChange={(e) => setBottomText(e.target.value)}
+                            onChange={(e) => dispatch(setBottomText(e.target.value))}
                             value={bottomText}
                         />
                     </div>
@@ -43,7 +51,7 @@ export default function Frames({
                                 <input
                                     type='color'
                                     className="w-6 cursor-pointer"
-                                    onChange={(e) => setTextColor(e.target.value)}
+                                    onChange={(e) => dispatch(setTextColor(e.target.value))}
                                     value={textColor}
                                 />
                             </div>
@@ -55,7 +63,7 @@ export default function Frames({
                                 <input
                                     type='color'
                                     className="w-6 cursor-pointer"
-                                    onChange={(e) => setColor(e.target.value)}
+                                    onChange={(e) => dispatch(setColor(e.target.value))}
                                     value={color}
                                 />
                             </div>
@@ -65,15 +73,3 @@ export default function Frames({
         </div>
     )
 }
-
-
-const frames = [
-    {
-        name: 'None',
-        frame: 'square'
-    },
-    {
-        name: 'Circle',
-        frame: 'circle'
-    },
-]

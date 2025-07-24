@@ -1,0 +1,26 @@
+[
+    {
+        "name": "rounded",
+        "icon": "SquareRoundCorner"
+    },
+    {
+        "name": "dots",
+        "icon": "Grip"
+    },
+    {
+        "name": "classy",
+        "icon": ""
+    },
+    {
+        "name": "classy-rounded",
+        "icon": ""
+    },
+    {
+        "name": "square",
+        "icon": ""
+    },
+    {
+        "name": "extra-rounded",
+        "icon": ""
+    }
+]
