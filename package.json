@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "postbuild": "touch out/.nojekyll && mv out docs && touch docs/.nojekyll",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
