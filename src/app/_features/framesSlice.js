@@ -4,7 +4,7 @@ const initialState = {
     bottomText: "Scan to see the demo",
     textColor: "#ed9d07ff",
     color: "#000000ff",
-    shape: "square"
+    shape: "circle"
 }
 
 
